@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.alici.remotecontroler.BottonNavigation.GarageFragment;
 import com.example.alici.remotecontroler.BottonNavigation.KitchenFragment;
 import com.example.alici.remotecontroler.BottonNavigation.RoomFragment;
 
@@ -35,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = KitchenFragment.newInstance("Hello","World");
                         break;
                     case R.id.navigation_bathroom:
-//                        selectedFragment = ListasFragment.newInstance();
+//                        selectedFragment = BathRoomFragment.newInstance("Hello","World");
                         Log.d("Bottom bar","Bathroom selected");
                         break;
                     case R.id.navigation_garage:
-//                        selectedFragment = AmigosFragment.newInstance();
+                        selectedFragment = GarageFragment.newInstance("Hello","World");
                         Log.d("Bottom bar","Garage selected");
                         break;
                 }
