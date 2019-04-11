@@ -157,42 +157,66 @@ public class GarageFragment extends Fragment {
     public class GarageRequest extends AsyncTask<Void, Void, Boolean> {
 
         String urlAction;
-        String urlMode;
+        String mode;
 
-        public GarageRequest(String action, String mode)
-        {
-            urlAction = action;
-            urlMode = mode;
+        public GarageRequest(String urlAction, String mode) {
+            this.urlAction = urlAction;
+            this.mode = mode;
         }
 
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            String url = "";
+            if(mode.equals("get")){
+                url = urlAction + "kitchen";
+            }else if(mode.equals("set")){
+                url = urlAction + "kitchen?state="; //TODO parametro
+            }
+            //URL PARA CREAR EL CONSTRUCTOR
+            String urlJsonObj = AppController.PROTOCOL + AppController.INTELLIHOME + url;
 
-            String url = AppController.PROTOCOL + AppController.HOST_LAB + urlAction + urlMode;
+            Log.d(AppController.TAG, "URL: " + urlJsonObj);
 
-            Log.d(AppController.TAG, "URL: " + url);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // Display the first 500 characters of the response string.
-//                            textView.setText("Response is: "+ response.substring(0,500));
-                            Log.d("RESPONSE",response);
-                        }
-                    }, new Response.ErrorListener() {
+            //Objeto JSON para request
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,
+                    urlJsonObj, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    Log.d(AppController.TAG, response.toString());
+                    try {
+                        // Parsing json object response
+                        // response will be a json object
+
+                        Log.d(AppController.TAG, response.toString());
+
+                        //Cambiar dentro de getstring por el parámetro de json que se quiera
+                        String code = response.getString("state");
+
+
+
+                    } catch (JSONException e) {
+                        Log.e("ResponseParser", "Error: JSON error en parseUser" + response);
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+
                 @Override
                 public void onErrorResponse(VolleyError error) {
-//                    textView.setText("That didn't work!");
-                    Log.e("ERROR",error.getMessage());
+                    VolleyLog.d(AppController.TAG, "Error: " + error.getMessage());
                 }
             });
 
+            AppController.getInstance().addToRequestQueue(req);
 
-            AppController.getInstance().addToRequestQueue(stringRequest);
-
+            //Estos logs salen en el run
             Log.d(AppController.TAG, "Request added to queue");
 
+
+            //Este es el "success" que le llega al postExecute
             return true;
         }
 

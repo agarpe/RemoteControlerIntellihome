@@ -1,8 +1,5 @@
 package com.example.alici.remotecontroler.BottonNavigation;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,25 +14,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.example.alici.remotecontroler.R;
 import com.example.alici.remotecontroler.VolleyController.AppController;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 ///**
 // * A simple {@link Fragment} subclass.
 // * Activities that contain this fragment must implement the
-// * {@link KitchenFragment.OnFragmentInteractionListener} interface
+// * {@link BathroomFragment.OnFragmentInteractionListener} interface
 // * to handle interaction events.
-// * Use the {@link KitchenFragment#newInstance} factory method to
+// * Use the {@link BathroomFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class KitchenFragment extends Fragment {
+public class BathroomFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,11 +38,11 @@ public class KitchenFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private KitchenRequest kitchenRequest;
+    private BathroomRequest bathroomRequest;
 
 //    private OnFragmentInteractionListener mListener;
 
-    public KitchenFragment() {
+    public BathroomFragment() {
         // Required empty public constructor
     }
 
@@ -59,11 +52,11 @@ public class KitchenFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment KitchenFragment.
+     * @return A new instance of fragment BathroomFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static KitchenFragment newInstance(String param1, String param2) {
-        KitchenFragment fragment = new KitchenFragment();
+    public static BathroomFragment newInstance(String param1, String param2) {
+        BathroomFragment fragment = new BathroomFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,7 +77,7 @@ public class KitchenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_kitchen, container, false);
+        View view =  inflater.inflate(R.layout.fragment_bathroom, container, false);
 
         //onclicks y demás cosas
 
@@ -96,27 +89,27 @@ public class KitchenFragment extends Fragment {
 
 
 
-    public class KitchenRequest extends AsyncTask<Void, Void, Boolean> {
+    public class BathroomRequest extends AsyncTask<Void, Void, Boolean> {
 
         //Parametros de url o lo que sea para crear el objeto
         String urlAction;
         String mode;
 
-        public KitchenRequest(String urlAction, String mode) {
+        public BathroomRequest(String urlAction, String mode) {
             this.urlAction = urlAction;
             this.mode = mode;
         }
 
 
-        //Lo que se inicia al hacer kitchenRequ.execute
+        //Lo que se inicia al hacer bathroomRequ.execute
 
         @Override
         protected Boolean doInBackground(Void... params) {
             String url = "";
             if(mode.equals("get")){
-                url = urlAction + "kitchen";
+                url = urlAction + "bathroom";
             }else if(mode.equals("set")){
-                url = urlAction + "kitchen?state="; //TODO parametro
+                url = urlAction + "bathroom?state="; //TODO parametro
             }
             //URL PARA CREAR EL CONSTRUCTOR
             String urlJsonObj = AppController.PROTOCOL + AppController.INTELLIHOME + url;
