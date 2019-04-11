@@ -65,7 +65,7 @@ public class GarageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_garage, container, false);
+       View view = inflater.inflate(R.layout.fragment_garage, container, false);
 
 
         final Switch lightSw = (Switch) view.findViewById(R.id.light_garage_switch);

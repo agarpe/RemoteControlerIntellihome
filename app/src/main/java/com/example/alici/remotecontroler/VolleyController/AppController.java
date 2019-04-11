@@ -30,6 +30,7 @@ public class AppController extends Application {
     public static final String GETLIGHT1 = "/bbhttp/get/Light:lamp2@amilab!isSwitchable/status.binaryValue" ;
     public static final String SETLIGHT1 = "/bbhttp/set/Light:lamp1@amilab!isSwitchable/status.binaryValue=";
 
+
     private String jsonResponse;
 
     private JSONObject requestResponse = new JSONObject();
