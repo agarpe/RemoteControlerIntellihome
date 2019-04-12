@@ -89,7 +89,7 @@ public class GarageFragment extends Fragment {
                 }
 
 
-                lightRequest = new GarageRequest(AppController.SETLIGHT1,mode);
+                lightRequest = new GarageRequest(AppController.SETLIGHT,mode);
                 lightRequest.execute();
 
             }
@@ -168,11 +168,12 @@ public class GarageFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             String url = "";
-            if(mode.equals("get")){
-                url = urlAction + "kitchen";
-            }else if(mode.equals("set")){
-                url = urlAction + "kitchen?state="; //TODO parametro
+            if(urlAction.compareTo(AppController.GETLIGHT) == 0) {
+                url = urlAction + "garage";
+            } else if(urlAction.compareTo(AppController.SETLIGHT) == 0){
+                url = urlAction + "garage&state=" +mode; //TODO parametro
             }
+
             //URL PARA CREAR EL CONSTRUCTOR
             String urlJsonObj = AppController.PROTOCOL + AppController.INTELLIHOME + url;
 
@@ -195,8 +196,6 @@ public class GarageFragment extends Fragment {
                         //Cambiar dentro de getstring por el parámetro de json que se quiera
                         String code = response.getString("state");
 
-
-
                     } catch (JSONException e) {
                         Log.e("ResponseParser", "Error: JSON error en parseUser" + response);
                         e.printStackTrace();
@@ -209,6 +208,8 @@ public class GarageFragment extends Fragment {
                     VolleyLog.d(AppController.TAG, "Error: " + error.getMessage());
                 }
             });
+
+
 
             AppController.getInstance().addToRequestQueue(req);
 
