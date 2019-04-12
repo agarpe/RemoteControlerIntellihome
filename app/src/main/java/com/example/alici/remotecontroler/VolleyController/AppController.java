@@ -30,17 +30,17 @@ public class AppController extends Application {
     public static final String GETLIGHT1 = "/bbhttp/get/Light:lamp2@amilab!isSwitchable/status.binaryValue" ;
     public static final String SETLIGHT1 = "/bbhttp/set/Light:lamp1@amilab!isSwitchable/status.binaryValue=";
     public static final String GETLIGHT = "/operations/getLightStatus.php?room=";
-    public static final String SETLIGHT = "/operations/changeLight.php?";
+    public static final String SETLIGHT = "/operations/changeLight.php?room=";
     public static final String GETDOOR = "/operations/getDoorStatus.php?room=";
-    public static final String SETDOOR = "/operations/changeDoor.php?";
+    public static final String SETDOOR = "/operations/changeDoor.php?room=";
     public static final String GETHUMIDITY = "/operations/getHumidity.php?room=";
-    public static final String SETHUMIDITY = "/operations/changeHumidity.php?";
+    public static final String SETHUMIDITY = "/operations/changeHumidity.php?room=";
     public static final String GETPRESENCE = "/operations/getPresenceInfo.php?room=";
-    public static final String SETPRESENCE = "/operations/changePresence.php?";
+    public static final String SETPRESENCE = "/operations/changePresence.php?room=";
     public static final String GETSMOKE = "/operations/getSmokeInfo.php?room=";
-    public static final String SETSMOKE = "/operations/changeSmoke.php?";
+    public static final String SETSMOKE = "/operations/changeSmoke.php?room=";
     public static final String GETTEMPERATURE = "/operations/getTemperature.php?room=";
-    public static final String SETTEMPERATURE = "/operations/changeTemperature.php?";
+    public static final String SETTEMPERATURE = "/operations/changeTemperature.php?room=";
 
 
 
