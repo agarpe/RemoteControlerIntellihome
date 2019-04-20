@@ -6,7 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.alici.remotecontroler.BottonNavigation.GarageFragment;
@@ -27,21 +26,19 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = RoomFragment.newInstance("Hello","World");;
+                Fragment selectedFragment = RoomFragment.newInstance();
                 switch (item.getItemId()) {
                     case R.id.navigation_room:
-                        selectedFragment = RoomFragment.newInstance("Hello","World");
+                        selectedFragment = RoomFragment.newInstance();
                         break;
                     case R.id.navigation_kitchen:
-                        selectedFragment = KitchenFragment.newInstance("Hello","World");
+                        selectedFragment = KitchenFragment.newInstance();
                         break;
                     case R.id.navigation_bathroom:
-//                        selectedFragment = BathRoomFragment.newInstance("Hello","World");
-                        Log.d("Bottom bar","Bathroom selected");
+//                        selectedFragment = BathroomFragment.newInstance();
                         break;
                     case R.id.navigation_garage:
-                        selectedFragment = GarageFragment.newInstance("Hello","World");
-                        Log.d("Bottom bar","Garage selected");
+                        selectedFragment = GarageFragment.newInstance();
                         break;
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, RoomFragment.newInstance("Hello","World"));
+        transaction.replace(R.id.frame_layout, RoomFragment.newInstance());
         transaction.commit();
 
     }
