@@ -14,14 +14,14 @@
         tools:layout_editor_absoluteY="45dp">
 
         <TextView
-            android:id="@+id/kitchen_title"
+            android:id="@+id/bathroom_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cocina"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <Switch
-            android:id="@+id/light_kitchen_switch"
+            android:id="@+id/light_bathroom_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Luz"
@@ -43,7 +43,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/temp_kitchen_content"
+                android:id="@+id/temp_bathroom_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/kitchen_rechargeButton"
+                android:id="@+id/bathroom_rechargeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/hum_kitchen_content"
+                android:id="@+id/hum_bathroom_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
