@@ -3,7 +3,7 @@
     package="com.example.alici.remotecontroler">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:name=".VolleyController.AppController"
+        android:name=".IntelliHomeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
