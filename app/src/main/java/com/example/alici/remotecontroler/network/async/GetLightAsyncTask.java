@@ -38,6 +38,7 @@ public class GetLightAsyncTask extends AsyncTask<Void, Void, Light> {
             e.printStackTrace();
         }
         return null;
+
     }
 
     @Override

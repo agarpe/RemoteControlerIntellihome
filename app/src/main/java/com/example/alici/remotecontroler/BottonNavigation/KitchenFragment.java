@@ -4,19 +4,27 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.alici.remotecontroler.ListAdapter.AdapterItemSmoke;
+import com.example.alici.remotecontroler.ListAdapter.ItemSmoke;
 import com.example.alici.remotecontroler.R;
 import com.example.alici.remotecontroler.models.Light;
+import com.example.alici.remotecontroler.models.Smoke;
 import com.example.alici.remotecontroler.network.async.GetHumidityAsyncTask;
 import com.example.alici.remotecontroler.network.async.GetLightAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetSmokeAsyncTask;
 import com.example.alici.remotecontroler.network.async.GetTempAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetLightAsyncTask;
+
+import java.util.ArrayList;
 
 //
 ///**
@@ -31,6 +39,7 @@ public class KitchenFragment extends Fragment {
     private Switch lightSw;
     private TextView tempTextView;
     private TextView humTextView;
+    private RecyclerView lvSmoke;
 
     public static KitchenFragment newInstance() { return new KitchenFragment(); }
 
@@ -78,6 +87,19 @@ public class KitchenFragment extends Fragment {
         });
 
         //TODO get de humo
+
+         lvSmoke = (RecyclerView) view.findViewById(R.id.listview_smoke_kitchen);
+
+
+         ArrayList<Smoke> smokes = new ArrayList<>();
+         smokes.add(new Smoke("01/04/1234"));
+        smokes.add(new Smoke("01/04/43636"));
+        smokes.add(new Smoke("01/04/5555"));
+        AdapterItemSmoke adapter = new AdapterItemSmoke(smokes);
+        lvSmoke.setAdapter(adapter);
+
+
+
         return view;
     }
 
@@ -110,5 +132,17 @@ public class KitchenFragment extends Fragment {
         getHumidityAsyncTask.execute();
 
         //TODO get inicial de humo
+        GetSmokeAsyncTask getSmokeAsyncTask = new GetSmokeAsyncTask("kitchen", new GetSmokeAsyncTask.CallbackGetSmoke() {
+            @Override
+            public void getSmoke(ArrayList<Smoke> smoke) {
+//                ArrayList<ItemSmoke> category = new ArrayList<ItemSmoke>();
+                //Obtiene los datos de itemSmoke a partir de los Smokes
+//                category = Smoke.getSmokeCategory(smoke);
+
+                AdapterItemSmoke adapter = new AdapterItemSmoke(smoke);
+                lvSmoke.setAdapter(adapter);
+            }
+        });
+        getSmokeAsyncTask.execute();
     }
 }
