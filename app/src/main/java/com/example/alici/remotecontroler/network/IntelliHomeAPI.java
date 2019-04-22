@@ -3,46 +3,46 @@ package com.example.alici.remotecontroler.network;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IntelliHomeAPI {
 
     //     public static final String GETLIGHT1 = "/bbhttp/get/Light:lamp2@amilab!isSwitchable/state.binaryValue" ;
     //     public static final String SETLIGHT1 = "/bbhttp/set/Light:lamp1@amilab!isSwitchable/state.binaryValue=";
 
-    @GET("operations/getLightStatus.php?place={place}")
-    Call<Integer> getLight(@Path("place") String place);
+    @GET("operations/getLightStatus.php")
+    Call<Integer> getLight(@Query("place") String place);
 
-    @POST("operations/changeLightMovil.php?place={place}&state={state}")
-    Call<Void> setLight(@Path("place") String place, @Path("state") int state);
+    @POST("operations/changeLightMovil.php")
+    Call<Void> setLight(@Query("place") String place, @Query("state") int state);
 
-    @GET("operations/getDoorStatus.php?place={place}")
-    Call<Integer> getDoor(@Path("place") String place);
+    @GET("operations/getDoorStatus.php")
+    Call<Integer> getDoor(@Query("place") String place);
 
-    @POST("operations/changeDoorMovil.php?place={place}&state={state}")
-    Call<Void> setDoor(@Path("place") String place, @Path("state") int state);
+    @POST("operations/changeDoorMovil.php")
+    Call<Void> setDoor(@Query("place") String place, @Query("state") int state);
 
-    @GET("operations/getHumidityStatus.php?place={place}")
-    Call<Integer> getHumidity(@Path("place") String place);
+    @GET("operations/getHumidityStatus.php")
+    Call<Integer> getHumidity(@Query("place") String place);
 
-    @POST("operations/changeHumidityMovil.php?place={place}&hum={hum}")
-    Call<Void> setHumidity(@Path("place") String place, @Path("hum") int hum);
+    @POST("operations/changeHumidityMovil.php")
+    Call<Void> setHumidity(@Query("place") String place, @Query("hum") int hum);
 
-    @GET("operations/getPresenceInfo.php?place={place}")
-    Call<Integer> getPresence(@Path("place") String place);
+    @GET("operations/getPresenceInfo.php")
+    Call<Integer> getPresence(@Query("place") String place);
 
-    @POST("operations/changePresenceMovil.php?place={place}&state={state}")
-    Call<Void> setPresence(@Path("place") String place, @Path("state") int state);
+    @POST("operations/changePresenceMovil.php")
+    Call<Void> setPresence(@Query("place") String place, @Query("state") int state);
 
-    @GET("operations/getSmokeInfo.php?place={place}")
-    Call<Integer> getSmoke(@Path("place") String place);
+    @GET("operations/getSmokeInfo.php")
+    Call<Integer> getSmoke(@Query("place") String place);
 
     @POST("operations/changeSmokeMovil.php?place={place}&state={state}")
-    Call<Void> setSmoke(@Path("place") String place, @Path("state") int state);
+    Call<Void> setSmoke(@Query("place") String place, @Query("state") int state);
 
-    @GET("operations/getTemperature.php?place={place}")
-    Call<Integer> getTemperature(@Path("place") String place);
+    @GET("operations/getTemperature.php")
+    Call<Integer> getTemperature(@Query("place") String place);
 
-    @POST("operations/changeTemperatureMovil.php?place={place}&temp={temp}")
-    Call<Void> setTemperature(@Path("place") String place, @Path("temp") int temp);
+    @POST("operations/changeTemperatureMovil.php")
+    Call<Void> setTemperature(@Query("place") String place, @Query("temp") int temp);
 }
