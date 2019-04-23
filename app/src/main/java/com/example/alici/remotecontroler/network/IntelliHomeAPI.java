@@ -22,7 +22,7 @@ public interface IntelliHomeAPI {
     @POST("operations/changeDoorMovil.php")
     Call<Void> setDoor(@Query("place") String place, @Query("state") int state);
 
-    @GET("operations/getHumidityStatus.php")
+    @GET("operations/getHumidity.php")
     Call<Integer> getHumidity(@Query("place") String place);
 
     @POST("operations/changeHumidityMovil.php")

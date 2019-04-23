@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,8 @@ public class KitchenFragment extends Fragment {
     private TextView tempTextView;
     private TextView humTextView;
     private RecyclerView lvSmoke;
+
+    private RecyclerView.LayoutManager layoutManager;
 
     public static KitchenFragment newInstance() { return new KitchenFragment(); }
 
@@ -95,6 +98,12 @@ public class KitchenFragment extends Fragment {
          smokes.add(new Smoke("01/04/1234"));
         smokes.add(new Smoke("01/04/43636"));
         smokes.add(new Smoke("01/04/5555"));
+
+        // use a linear layout manager
+//        layoutManager = new LinearLayoutManager(getContext());
+//        lvSmoke.setLayoutManager(layoutManager);
+
+
         AdapterItemSmoke adapter = new AdapterItemSmoke(smokes);
         lvSmoke.setAdapter(adapter);
 
