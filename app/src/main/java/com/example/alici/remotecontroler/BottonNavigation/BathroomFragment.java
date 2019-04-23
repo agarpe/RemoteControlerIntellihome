@@ -107,7 +107,7 @@ public class BathroomFragment extends Fragment {
         GetHumidityAsyncTask getHumidityAsyncTask = new GetHumidityAsyncTask("bathroom", new GetHumidityAsyncTask.CallbackGetHum() {
             @Override
             public void getHum(Integer hum) {
-                tempTextView.setText(hum + " %");
+                humTextView.setText(hum + " %");
             }
         });
         getHumidityAsyncTask.execute();

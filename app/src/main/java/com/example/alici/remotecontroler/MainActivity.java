@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.alici.remotecontroler.BottonNavigation.BathroomFragment;
 import com.example.alici.remotecontroler.BottonNavigation.GarageFragment;
 import com.example.alici.remotecontroler.BottonNavigation.KitchenFragment;
 import com.example.alici.remotecontroler.BottonNavigation.RoomFragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = KitchenFragment.newInstance();
                         break;
                     case R.id.navigation_bathroom:
-//                        selectedFragment = BathroomFragment.newInstance();
+                        selectedFragment = BathroomFragment.newInstance();
                         break;
                     case R.id.navigation_garage:
                         selectedFragment = GarageFragment.newInstance();
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, RoomFragment.newInstance());
+//        transaction.replace(R.id.frame_layout, KitchenFragment.newInstance());
         transaction.commit();
 
     }

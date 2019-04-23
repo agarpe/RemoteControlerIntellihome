@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="living_room">Living Room</string>
+    <string name="room">Room</string>
     <string name="kitchen">Kitchen</string>
     <string name="garage">Garage</string>
     <string name="bathroom">Bathroom</string>

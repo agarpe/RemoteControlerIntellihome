@@ -1,6 +1,7 @@
 package com.example.alici.remotecontroler.network.async;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.alici.remotecontroler.IntelliHomeApplication;
 
@@ -28,7 +29,13 @@ public class GetHumidityAsyncTask extends AsyncTask<Void, Void, Integer> {
         Response<Integer> getHumResp;
         try {
             getHumResp = getHumReq.execute();
-            if (getHumResp.isSuccessful()) return getHumResp.body();
+            if (getHumResp.isSuccessful())
+            {
+                Log.d("GETASHUM",getHumResp.body().toString());
+                return getHumResp.body();
+            }
+            else
+                Log.e("GETASHUM",getHumResp.errorBody().toString());
             //Si no funciona por ser entero hacer un custom converter
             //Sale buscando retrofit parse integer
         } catch (IOException e) {

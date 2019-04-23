@@ -1,6 +1,7 @@
 package com.example.alici.remotecontroler.network.async;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.alici.remotecontroler.IntelliHomeApplication;
 
@@ -28,7 +29,14 @@ public class GetTempAsyncTask extends AsyncTask<Void, Void, Integer> {
         Response<Integer> getTempResp;
         try {
             getTempResp = getTempReq.execute();
-            if (getTempResp.isSuccessful()) return getTempResp.body();
+            if (getTempResp.isSuccessful())
+            {
+                Log.d("GETASTEMP",getTempResp.body().toString());
+                return getTempResp.body();
+            }
+            else
+                Log.e("GETASTEMP",getTempResp.errorBody().toString());
+
             //Si no funciona por ser entero hacer un custom converter
             //Sale buscando retrofit parse integer
         } catch (IOException e) {

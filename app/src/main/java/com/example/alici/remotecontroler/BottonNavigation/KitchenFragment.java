@@ -126,7 +126,7 @@ public class KitchenFragment extends Fragment {
         GetHumidityAsyncTask getHumidityAsyncTask = new GetHumidityAsyncTask("kitchen", new GetHumidityAsyncTask.CallbackGetHum() {
             @Override
             public void getHum(Integer hum) {
-                tempTextView.setText(hum + " %");
+                humTextView.setText(hum + " %");
             }
         });
         getHumidityAsyncTask.execute();
@@ -143,6 +143,6 @@ public class KitchenFragment extends Fragment {
                 lvSmoke.setAdapter(adapter);
             }
         });
-        getSmokeAsyncTask.execute();
+//        getSmokeAsyncTask.execute();
     }
 }

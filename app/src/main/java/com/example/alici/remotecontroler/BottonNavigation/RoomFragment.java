@@ -67,9 +67,9 @@ public class RoomFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         GetLightAsyncTask getLightAsyncTask = new GetLightAsyncTask("room", new GetLightAsyncTask.CallbackGetLight() {
-            @Override
-            public void getLight(Light light) {
-                lightSw.setChecked(light.isOn());
+                    @Override
+                    public void getLight(Light light) {
+                        lightSw.setChecked(light.isOn());
                 lightSw.setVisibility(View.VISIBLE);
             }
         });
