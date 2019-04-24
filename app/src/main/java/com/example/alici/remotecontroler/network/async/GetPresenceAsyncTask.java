@@ -3,7 +3,7 @@ package com.example.alici.remotecontroler.network.async;
 import android.os.AsyncTask;
 
 import com.example.alici.remotecontroler.IntelliHomeApplication;
-import com.example.alici.remotecontroler.models.Smoke;
+import com.example.alici.remotecontroler.models.Date;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<Smoke>> {
+public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<Date>> {
     private String place;
 
     public interface CallbackGetPresence {
@@ -25,7 +25,7 @@ public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<Smoke>
     }
 //
     @Override
-    protected ArrayList<Smoke> doInBackground(Void... voids) {
+    protected ArrayList<Date> doInBackground(Void... voids) {
         Call<Integer> getPresenceReq = IntelliHomeApplication.service.getPresence(place);
         Response<Integer> getPresenceResp;
         try {

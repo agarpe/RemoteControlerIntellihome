@@ -3,19 +3,20 @@ package com.example.alici.remotecontroler.network.async;
 import android.os.AsyncTask;
 
 import com.example.alici.remotecontroler.IntelliHomeApplication;
-import com.example.alici.remotecontroler.models.Smoke;
+import com.example.alici.remotecontroler.models.Date;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Smoke> > {
+public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Date> > {
     private String place;
 
     public interface CallbackGetSmoke {
-        void getSmoke(ArrayList<Smoke> smoke);
+        void getSmoke(ArrayList<Date> smoke);
     }
     private CallbackGetSmoke callback;
 
@@ -25,9 +26,9 @@ public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Smoke> > 
     }
 
     @Override
-    protected ArrayList<Smoke> doInBackground(Void... voids) {
-        Call<Integer> getSmokeReq = IntelliHomeApplication.service.getSmoke(place);
-        Response<Integer> getSmokeResp;
+    protected ArrayList<Date> doInBackground(Void... voids) {
+        Call<Integer > getSmokeReq = IntelliHomeApplication.service.getSmoke(place);
+        Response<Integer > getSmokeResp;
         try {
             getSmokeResp = getSmokeReq.execute();
             if (getSmokeResp.isSuccessful())
@@ -41,7 +42,7 @@ public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Smoke> > 
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Smoke> smokeRecord) {
+    protected void onPostExecute(ArrayList<Date> smokeRecord) {
         super.onPostExecute(smokeRecord);
         callback.getSmoke(smokeRecord);
     }

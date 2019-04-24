@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_garage"
         android:title="@string/garage" />
 
+    <item
+        android:id="@+id/navigation_lab"
+        android:icon="@drawable/ic_bed"
+        android:title="@string/lab" />
+
 </menu>

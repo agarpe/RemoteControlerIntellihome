@@ -2,24 +2,20 @@ package com.example.alici.remotecontroler.models;
 
 import android.util.Log;
 
-import com.example.alici.remotecontroler.ListAdapter.ItemSmoke;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class Smoke {
+public class Date {
 
     public String date;
     String time;
 
 
-    public Smoke(String date)
+    public Date(String date)
     {
         this.date = date;
     }
-    public Smoke(JSONObject response)
+    public Date(JSONObject response)
     {
         try{
             //TODO: comprobar si son 2 parámetros o un solo string
@@ -37,7 +33,7 @@ public class Smoke {
 
     }
 
-//    public static ArrayList<ItemSmoke> getSmokeCategory(ArrayList<Smoke> smoke) {
+//    public static ArrayList<ItemDate> getSmokeCategory(ArrayList<Date> smoke) {
 //
 //    }
 }

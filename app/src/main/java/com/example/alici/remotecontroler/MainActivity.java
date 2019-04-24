@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.alici.remotecontroler.BottonNavigation.BathroomFragment;
 import com.example.alici.remotecontroler.BottonNavigation.GarageFragment;
 import com.example.alici.remotecontroler.BottonNavigation.KitchenFragment;
+import com.example.alici.remotecontroler.BottonNavigation.LabFragment;
 import com.example.alici.remotecontroler.BottonNavigation.RoomFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_garage:
                         selectedFragment = GarageFragment.newInstance();
+                        break;
+                    case R.id.navigation_lab:
+                        selectedFragment = LabFragment.newInstance();
                         break;
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

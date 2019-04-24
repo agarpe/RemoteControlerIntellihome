@@ -38,7 +38,7 @@ public class GetLightAsyncTask extends AsyncTask<Void, Void, Light> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new Light(false);
 
     }
 

@@ -3,6 +3,7 @@ package com.example.alici.remotecontroler.BottonNavigation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,7 @@ public class BathroomFragment extends Fragment {
                 setLightAsyncTask.execute();
             }
         });
-        Button rechargeButton = view.findViewById(R.id.bathroom_rechargeButton);
+        FloatingActionButton rechargeButton = view.findViewById(R.id.bathroom_rechargeButton);
         tempTextView = view.findViewById(R.id.temp_bathroom_content);
         humTextView = view.findViewById(R.id.hum_bathroom_content);
         rechargeButton.setOnClickListener(new View.OnClickListener() {

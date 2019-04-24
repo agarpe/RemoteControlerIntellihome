@@ -7,18 +7,27 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="45dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/kitchen_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Cocina"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="30sp" />
 
         <Switch
             android:id="@+id/light_kitchen_switch"
@@ -50,12 +59,6 @@
                 android:text="20 ºC"
                 android:textSize="24sp" />
 
-            <Button
-                android:id="@+id/kitchen_rechargeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Recargar" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,32 +85,40 @@
                 android:textSize="24sp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/smoke_txtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registro de humo"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="24sp" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listview_smoke_kitchen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cv"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/date_list"
-                    />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/kitchen_rechargeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="667dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginRight="150dp"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/ic_menu_rotate" />
 
 </android.support.constraint.ConstraintLayout>

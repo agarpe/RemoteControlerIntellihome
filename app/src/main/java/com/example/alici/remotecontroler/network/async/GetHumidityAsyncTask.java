@@ -32,14 +32,12 @@ public class GetHumidityAsyncTask extends AsyncTask<Void, Void, Integer> {
             if (getHumResp.isSuccessful())
             {
                 Log.d("GETASHUM",getHumResp.body().toString());
-                Log.d("GETASHUM", getHumResp.raw().message());
+//                Log.d("GETASHUM", getHumResp.raw().message());
                 return getHumResp.body();
             }
             else
                 Log.e("GETASHUM",getHumResp.errorBody().toString());
-            Log.e("GETASHUM", getHumResp.raw().message());
-            //Si no funciona por ser entero hacer un custom converter
-            //Sale buscando retrofit parse integer
+//            Log.e("GETASHUM", getHumResp.raw().message());
         } catch (IOException e) {
             e.printStackTrace();
         }
