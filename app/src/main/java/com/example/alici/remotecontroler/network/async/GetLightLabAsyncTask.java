@@ -26,11 +26,16 @@ public class GetLightLabAsyncTask extends AsyncTask<Void, Void, Light> {
 
     @Override
     protected Light doInBackground(Void... voids) {
-        Call<Integer> getLightReq = IntelliHomeApplication.serviceLab.getLightLab(labLight);
-        Response<Integer> getLightResp;
+        Call<String> getLightReq = IntelliHomeApplication.serviceLab.getLightLab(labLight);
+        Response<String> getLightResp;
         try {
             getLightResp = getLightReq.execute();
-            if (getLightResp.isSuccessful()) return new Light(getLightResp.body() == 1);
+            if (getLightResp.isSuccessful()){
+                //la respuesta es del tipo "binaryValue=1;" o "binaryValue=0"
+                String respBody = getLightResp.body();
+                String lightStatus = respBody.substring(respBody.length() - 2, respBody.length() - 1);
+                return new Light(lightStatus.equals("1"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
