@@ -5,13 +5,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.alici.remotecontroler.R;
 import com.example.alici.remotecontroler.models.Light;
+import com.example.alici.remotecontroler.network.async.SetLightLabAsyncTask;
 import com.example.alici.remotecontroler.network.async.GetLightLabAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetLightLabAsyncTask;
 
@@ -27,6 +32,7 @@ import com.example.alici.remotecontroler.network.async.SetLightLabAsyncTask;
 public class LabFragment extends Fragment {
     private Switch light1Sw;
     private Switch light2Sw;
+    private SeekBar dimLight;
 
     public static LabFragment newInstance() {
         return new LabFragment();
@@ -43,7 +49,7 @@ public class LabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 light1Sw.setEnabled(false);
-                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("lab", light1Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
+                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("1", light1Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
                     @Override
                     public void setLight(Boolean success) {
                         light1Sw.setEnabled(success);
@@ -58,7 +64,7 @@ public class LabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 light2Sw.setEnabled(false);
-                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("lab", light2Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
+                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("2", light2Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
                     @Override
                     public void setLight(Boolean success) {
                         light2Sw.setEnabled(success);
@@ -67,13 +73,44 @@ public class LabFragment extends Fragment {
                 setLightAsyncTask.execute();
             }
         });
+
+
+        dimLight = view.findViewById(R.id.dim_lamp_seek);
+
+        dimLight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //TODO: light request
+                final String level = String.valueOf(seekBar.getProgress());
+                SetLightLabAsyncTask setLightLabAsyncTask = new SetLightLabAsyncTask(level, new SetLightLabAsyncTask.CallbackSetLight() {
+                    @Override
+                    public void setLight(Boolean success) {
+                        Log.d("DIMLAMP","Regulado a "+level);
+                    }
+                });
+                setLightLabAsyncTask.execute();
+            }
+        });
+
+
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        GetLightLabAsyncTask getLight1AsyncTask = new GetLightLabAsyncTask("lab", new GetLightLabAsyncTask.CallbackGetLight() {
+        GetLightLabAsyncTask getLight1AsyncTask = new GetLightLabAsyncTask("1", new GetLightLabAsyncTask.CallbackGetLight() {
                     @Override
                     public void getLight(Light light) {
                         light1Sw.setChecked(light.isOn());
@@ -82,7 +119,7 @@ public class LabFragment extends Fragment {
         });
         getLight1AsyncTask.execute();
 
-        GetLightLabAsyncTask getLight2AsyncTask = new GetLightLabAsyncTask("lab", new GetLightLabAsyncTask.CallbackGetLight() {
+        GetLightLabAsyncTask getLight2AsyncTask = new GetLightLabAsyncTask("2", new GetLightLabAsyncTask.CallbackGetLight() {
                     @Override
                     public void getLight(Light light) {
                         light2Sw.setChecked(light.isOn());
@@ -90,6 +127,8 @@ public class LabFragment extends Fragment {
             }
         });
         getLight2AsyncTask.execute();
+
+
 
     }
 }

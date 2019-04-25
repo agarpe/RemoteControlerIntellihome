@@ -33,7 +33,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/dim_lamp_seek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

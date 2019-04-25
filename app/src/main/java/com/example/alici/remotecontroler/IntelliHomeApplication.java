@@ -7,6 +7,7 @@ import com.example.alici.remotecontroler.network.LabAPI;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class IntelliHomeApplication extends Application {
     public static IntelliHomeAPI service;
@@ -23,7 +24,8 @@ public class IntelliHomeApplication extends Application {
         service = retrofit.create(IntelliHomeAPI.class);
 
         Retrofit retrofitLab = new Retrofit.Builder()
-                .baseUrl("http://belisama.ii.uam.es:8080")
+                .baseUrl("http://belisama.ii.uam.es:8080/")
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         serviceLab = retrofitLab.create(LabAPI.class);
