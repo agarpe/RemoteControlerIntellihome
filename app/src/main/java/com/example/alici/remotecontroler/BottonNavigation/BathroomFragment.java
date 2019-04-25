@@ -78,10 +78,17 @@ public class BathroomFragment extends Fragment {
                     }
                 });
                 getHumidityAsyncTask.execute();
+
+                GetLightAsyncTask getLightAsyncTask = new GetLightAsyncTask("bathroom", new GetLightAsyncTask.CallbackGetLight() {
+                    @Override
+                    public void getLight(Light light) {
+                        lightSw.setChecked(light.isOn());
+                    }
+                });
+                getLightAsyncTask.execute();
             }
         });
 
-        //TODO get de humo
         return view;
     }
 
@@ -113,6 +120,5 @@ public class BathroomFragment extends Fragment {
         });
         getHumidityAsyncTask.execute();
 
-        //TODO get inicial de humo
     }
 }

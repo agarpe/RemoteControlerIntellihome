@@ -3,19 +3,28 @@ package com.example.alici.remotecontroler.BottonNavigation;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import com.example.alici.remotecontroler.ListAdapter.AdapterItemDate;
 import com.example.alici.remotecontroler.R;
 import com.example.alici.remotecontroler.models.Door;
 import com.example.alici.remotecontroler.models.Light;
 import com.example.alici.remotecontroler.network.async.GetDoorAsyncTask;
 import com.example.alici.remotecontroler.network.async.GetLightAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetPresenceAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetSmokeAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetDoorAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetLightAsyncTask;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 //
 ///**
@@ -31,6 +40,11 @@ public class GarageFragment extends Fragment {
     private long timeIni = 0;
     private Switch lightSw;
     private Switch doorSw;
+
+    private RecyclerView lvSmoke;
+    private RecyclerView lvPresence;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public static GarageFragment newInstance() {
         return new GarageFragment();
@@ -71,9 +85,52 @@ public class GarageFragment extends Fragment {
                     }
                 });
                 setDoorAsyncTask.execute();
+
             }
         });
-        //TODO presencia y humo
+
+        FloatingActionButton updateBt = view.findViewById(R.id.update_button_garage);
+        updateBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                GetSmokeAsyncTask getSmokeAsyncTask = new GetSmokeAsyncTask("garage", new GetSmokeAsyncTask.CallbackGetSmoke() {
+                    @Override
+                    public void getSmoke(ArrayList<String> smoke) {
+
+                        layoutManager = new LinearLayoutManager(getContext());
+                        lvSmoke.setLayoutManager(layoutManager);
+
+                        Collections.reverse(smoke);
+                        smoke.addAll(smoke);
+                        adapter = new AdapterItemDate(smoke);
+                        lvSmoke.setAdapter(adapter);
+
+                    }
+                });
+                getSmokeAsyncTask.execute();
+
+                GetPresenceAsyncTask getPresenceAsyncTask = new GetPresenceAsyncTask("garage", new GetPresenceAsyncTask.CallbackGetPresence() {
+                    @Override
+                    public void getPresence(ArrayList<String> presence) {
+
+                        layoutManager = new LinearLayoutManager(getContext());
+                        lvPresence.setLayoutManager(layoutManager);
+
+                        Collections.reverse(presence);
+                        adapter = new AdapterItemDate(presence);
+                        lvPresence.setAdapter(adapter);
+
+                    }
+                });
+                getPresenceAsyncTask.execute();
+            }
+        });
+
+        lvPresence = view.findViewById(R.id.presence_list_garage);
+        lvSmoke = view.findViewById(R.id.smoke_list_garage);
+
+
         return view;
     }
 
@@ -97,7 +154,35 @@ public class GarageFragment extends Fragment {
             }
         });
         getDoorAsyncTask.execute();
+        GetSmokeAsyncTask getSmokeAsyncTask = new GetSmokeAsyncTask("garage", new GetSmokeAsyncTask.CallbackGetSmoke() {
+            @Override
+            public void getSmoke(ArrayList<String> smoke) {
 
-        //TODO getters iniciales de presencia y humo
+                layoutManager = new LinearLayoutManager(getContext());
+                lvSmoke.setLayoutManager(layoutManager);
+
+                Collections.reverse(smoke);
+                smoke.addAll(smoke);
+                adapter = new AdapterItemDate(smoke);
+                lvSmoke.setAdapter(adapter);
+
+            }
+        });
+        getSmokeAsyncTask.execute();
+
+        GetPresenceAsyncTask getPresenceAsyncTask = new GetPresenceAsyncTask("garage", new GetPresenceAsyncTask.CallbackGetPresence() {
+            @Override
+            public void getPresence(ArrayList<String> presence) {
+
+                layoutManager = new LinearLayoutManager(getContext());
+                lvPresence.setLayoutManager(layoutManager);
+
+                Collections.reverse(presence);
+                adapter = new AdapterItemDate(presence);
+                lvPresence.setAdapter(adapter);
+
+            }
+        });
+        getPresenceAsyncTask.execute();
     }
 }
