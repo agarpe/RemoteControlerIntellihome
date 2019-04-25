@@ -1,68 +1,95 @@
 package com.example.alici.remotecontroler.BottonNavigation;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
-import com.example.alici.remotecontroler.ListAdapter.AdapterItemDate;
 import com.example.alici.remotecontroler.R;
-import com.example.alici.remotecontroler.models.Date;
 import com.example.alici.remotecontroler.models.Light;
-import com.example.alici.remotecontroler.network.async.GetHumidityAsyncTask;
-import com.example.alici.remotecontroler.network.async.GetLightAsyncTask;
-import com.example.alici.remotecontroler.network.async.GetSmokeAsyncTask;
-import com.example.alici.remotecontroler.network.async.GetTempAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetLightLabAsyncTask;
+import com.example.alici.remotecontroler.network.async.SetLightLabAsyncTask;
 
-import java.util.ArrayList;
-
+//
+///**
+// * A simple {@link Fragment} subclass.
+// * Activities that contain this fragment must implement the
+// * {@link LabFragment.OnFragmentInteractionListener} interface
+// * to handle interaction events.
+// * Use the {@link LabFragment#newInstance} factory method to
+// * create an instance of this fragment.
+// */
 public class LabFragment extends Fragment {
-
-    public LabFragment() {
-        // Required empty public constructor
-    }
+    private Switch light1Sw;
+    private Switch light2Sw;
 
     public static LabFragment newInstance() {
-        LabFragment fragment = new LabFragment();
-        Bundle args = new Bundle();
-        return fragment;
+        return new LabFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_lab, container, false);
-
-
-
-
+        light1Sw = view.findViewById(R.id.switch1);
+        light1Sw.setVisibility(View.INVISIBLE);
+        light1Sw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                light1Sw.setEnabled(false);
+                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("lab", light1Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
+                    @Override
+                    public void setLight(Boolean success) {
+                        light1Sw.setEnabled(success);
+                    }
+                });
+                setLightAsyncTask.execute();
+            }
+        });
+        light2Sw = view.findViewById(R.id.switch2);
+        light2Sw.setVisibility(View.INVISIBLE);
+        light2Sw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                light2Sw.setEnabled(false);
+                SetLightLabAsyncTask setLightAsyncTask = new SetLightLabAsyncTask("lab", light2Sw.isChecked(), new SetLightLabAsyncTask.CallbackSetLight() {
+                    @Override
+                    public void setLight(Boolean success) {
+                        light2Sw.setEnabled(success);
+                    }
+                });
+                setLightAsyncTask.execute();
+            }
+        });
         return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-       //TODO: Gets y execute correspondientes
+        GetLightLabAsyncTask getLight1AsyncTask = new GetLightLabAsyncTask("lab", new GetLightLabAsyncTask.CallbackGetLight() {
+                    @Override
+                    public void getLight(Light light) {
+                        light1Sw.setChecked(light.isOn());
+                light1Sw.setVisibility(View.VISIBLE);
+            }
+        });
+        getLight1AsyncTask.execute();
+
+        GetLightLabAsyncTask getLight2AsyncTask = new GetLightLabAsyncTask("lab", new GetLightLabAsyncTask.CallbackGetLight() {
+                    @Override
+                    public void getLight(Light light) {
+                        light2Sw.setChecked(light.isOn());
+                light2Sw.setVisibility(View.VISIBLE);
+            }
+        });
+        getLight2AsyncTask.execute();
+
     }
 }
