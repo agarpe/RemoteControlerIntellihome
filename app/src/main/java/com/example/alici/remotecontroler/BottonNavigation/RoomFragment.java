@@ -5,16 +5,24 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.example.alici.remotecontroler.ListAdapter.AdapterItemDate;
 import com.example.alici.remotecontroler.R;
 import com.example.alici.remotecontroler.models.Light;
 import com.example.alici.remotecontroler.network.async.GetLightAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetPresenceAsyncTask;
+import com.example.alici.remotecontroler.network.async.GetSmokeAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetLightAsyncTask;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 //
 ///**
@@ -27,6 +35,10 @@ import com.example.alici.remotecontroler.network.async.SetLightAsyncTask;
 // */
 public class RoomFragment extends Fragment {
     private Switch lightSw;
+
+    private RecyclerView lvPresence;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public static RoomFragment newInstance() {
         return new RoomFragment();
@@ -57,10 +69,24 @@ public class RoomFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                GetPresenceAsyncTask getPresenceAsyncTask = new GetPresenceAsyncTask("room", new GetPresenceAsyncTask.CallbackGetPresence() {
+                    @Override
+                    public void getPresence(ArrayList<String> presence) {
+
+                        layoutManager = new LinearLayoutManager(getContext());
+                        lvPresence.setLayoutManager(layoutManager);
+
+                        Collections.reverse(presence);
+                        adapter = new AdapterItemDate(presence);
+                        lvPresence.setAdapter(adapter);
+
+                    }
+                });
+                getPresenceAsyncTask.execute();
             }
         });
 
-        //TODO get de presencia
+        lvPresence = view.findViewById(R.id.room_presence_list);
         return view;
     }
 
@@ -76,6 +102,19 @@ public class RoomFragment extends Fragment {
         });
         getLightAsyncTask.execute();
 
-        //TODO get inicial de presencia
+        GetPresenceAsyncTask getPresenceAsyncTask = new GetPresenceAsyncTask("room", new GetPresenceAsyncTask.CallbackGetPresence() {
+            @Override
+            public void getPresence(ArrayList<String> presence) {
+
+                layoutManager = new LinearLayoutManager(getContext());
+                lvPresence.setLayoutManager(layoutManager);
+
+                Collections.reverse(presence);
+                adapter = new AdapterItemDate(presence);
+                lvPresence.setAdapter(adapter);
+
+            }
+        });
+        getPresenceAsyncTask.execute();
     }
 }

@@ -32,6 +32,7 @@ public class GetLightAsyncTask extends AsyncTask<Void, Void, Light> {
         Response<Integer> getLightResp;
         try {
             getLightResp = getLightReq.execute();
+            Log.d("GETAS ROOM",getLightResp.body().toString());
             if (getLightResp.isSuccessful()) return new Light(getLightResp.body() == 1);
             //Si no funciona por ser entero hacer un custom converter
             //Sale buscando retrofit parse integer

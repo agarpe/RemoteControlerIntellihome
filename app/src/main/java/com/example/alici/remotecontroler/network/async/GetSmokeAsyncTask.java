@@ -1,22 +1,27 @@
 package com.example.alici.remotecontroler.network.async;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.alici.remotecontroler.IntelliHomeApplication;
 import com.example.alici.remotecontroler.models.Date;
 
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Date> > {
+public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<String> > {
     private String place;
 
     public interface CallbackGetSmoke {
-        void getSmoke(ArrayList<Date> smoke);
+        void getSmoke(ArrayList<String> smoke);
     }
     private CallbackGetSmoke callback;
 
@@ -26,15 +31,18 @@ public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Date> > {
     }
 
     @Override
-    protected ArrayList<Date> doInBackground(Void... voids) {
-        Call<Integer > getSmokeReq = IntelliHomeApplication.service.getSmoke(place);
-        Response<Integer > getSmokeResp;
+    protected ArrayList<String> doInBackground(Void... voids) {
+        Call<ArrayList<String>> getSmokeReq = IntelliHomeApplication.service.getSmoke(place);
+        Response<ArrayList<String> > getSmokeResp;
         try {
             getSmokeResp = getSmokeReq.execute();
             if (getSmokeResp.isSuccessful())
             {
-//                smokeRecordString = getSmokeResp.body();
+                Log.d("GETAS",getSmokeResp.body().toString());
+                return getSmokeResp.body();
             }
+            else
+                Log.e("GETAS",getSmokeResp.body().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,7 +50,7 @@ public class GetSmokeAsyncTask extends AsyncTask<Void, Void, ArrayList<Date> > {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Date> smokeRecord) {
+    protected void onPostExecute(ArrayList<String> smokeRecord) {
         super.onPostExecute(smokeRecord);
         callback.getSmoke(smokeRecord);
     }

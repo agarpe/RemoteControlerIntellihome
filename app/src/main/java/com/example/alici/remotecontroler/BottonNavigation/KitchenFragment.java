@@ -23,7 +23,9 @@ import com.example.alici.remotecontroler.network.async.GetSmokeAsyncTask;
 import com.example.alici.remotecontroler.network.async.GetTempAsyncTask;
 import com.example.alici.remotecontroler.network.async.SetLightAsyncTask;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 //
 ///**
@@ -86,27 +88,26 @@ public class KitchenFragment extends Fragment {
                     }
                 });
                 getHumidityAsyncTask.execute();
+
+                GetSmokeAsyncTask getSmokeAsyncTask = new GetSmokeAsyncTask("kitchen", new GetSmokeAsyncTask.CallbackGetSmoke() {
+                    @Override
+                    public void getSmoke(ArrayList<String> smoke) {
+
+                        layoutManager = new LinearLayoutManager(getContext());
+                        lvSmoke.setLayoutManager(layoutManager);
+
+                        Collections.reverse(smoke);
+                        smoke.addAll(smoke);
+                        adapter = new AdapterItemDate(smoke);
+                        lvSmoke.setAdapter(adapter);
+
+                    }
+                });
+                getSmokeAsyncTask.execute();
             }
         });
 
-        //TODO get de humo
-
          lvSmoke = (RecyclerView) view.findViewById(R.id.listview_smoke_kitchen);
-
-
-         ArrayList<Date> smokes = new ArrayList<>();
-         smokes.add(new Date("01/04/1234"));
-        smokes.add(new Date("01/04/43636"));
-        smokes.add(new Date("01/04/5555"));
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getContext());
-        lvSmoke.setLayoutManager(layoutManager);
-
-        adapter = new AdapterItemDate(smokes);
-        lvSmoke.setAdapter(adapter);
-
-
 
         return view;
     }
@@ -121,7 +122,7 @@ public class KitchenFragment extends Fragment {
                 lightSw.setVisibility(View.VISIBLE);
             }
         });
-//        getLightAsyncTask.execute();
+        getLightAsyncTask.execute();
 
         GetTempAsyncTask getTempAsyncTask = new GetTempAsyncTask("kitchen", new GetTempAsyncTask.CallbackGetTemp() {
             @Override
@@ -129,7 +130,7 @@ public class KitchenFragment extends Fragment {
                 tempTextView.setText(temp + " ºC");
             }
         });
-//        getTempAsyncTask.execute();
+        getTempAsyncTask.execute();
 
         GetHumidityAsyncTask getHumidityAsyncTask = new GetHumidityAsyncTask("kitchen", new GetHumidityAsyncTask.CallbackGetHum() {
             @Override
@@ -137,20 +138,22 @@ public class KitchenFragment extends Fragment {
                 humTextView.setText(hum + " %");
             }
         });
-//        getHumidityAsyncTask.execute();
+        getHumidityAsyncTask.execute();
 
-        //TODO get inicial de humo
         GetSmokeAsyncTask getSmokeAsyncTask = new GetSmokeAsyncTask("kitchen", new GetSmokeAsyncTask.CallbackGetSmoke() {
             @Override
-            public void getSmoke(ArrayList<Date> smoke) {
-//                ArrayList<ItemDate> category = new ArrayList<ItemDate>();
-                //Obtiene los datos de itemSmoke a partir de los Smokes
-//                category = Date.getSmokeCategory(smoke);
+            public void getSmoke(ArrayList<String> smoke) {
 
-                AdapterItemDate adapter = new AdapterItemDate(smoke);
+                layoutManager = new LinearLayoutManager(getContext());
+                lvSmoke.setLayoutManager(layoutManager);
+
+                Collections.reverse(smoke);
+                smoke.addAll(smoke);
+                adapter = new AdapterItemDate(smoke);
                 lvSmoke.setAdapter(adapter);
+
             }
         });
-//        getSmokeAsyncTask.execute();
+        getSmokeAsyncTask.execute();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.alici.remotecontroler.network;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -29,13 +31,13 @@ public interface IntelliHomeAPI {
     Call<Void> setHumidity(@Query("place") String place, @Query("hum") int hum);
 
     @GET("operations/getPresenceInfo.php")
-    Call<Integer> getPresence(@Query("place") String place);
+    Call<ArrayList<String>> getPresence(@Query("place") String place);
 
     @POST("operations/changePresenceMovil.php")
     Call<Void> setPresence(@Query("place") String place, @Query("state") int state);
 
     @GET("operations/getSmokeInfo.php")
-    Call<Integer> getSmoke(@Query("place") String place);
+    Call<ArrayList<String>> getSmoke(@Query("place") String place);
 
     @POST("operations/changeSmokeMovil.php?place={place}&state={state}")
     Call<Void> setSmoke(@Query("place") String place, @Query("state") int state);

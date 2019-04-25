@@ -25,9 +25,9 @@ public class AdapterItemDate extends  RecyclerView.Adapter<AdapterItemDate.DateV
         }
     }
 
-    List<Date> record;
+    List<String> record;
 
-    public AdapterItemDate(List<Date> smokeRecord){
+    public AdapterItemDate(List<String> smokeRecord){
         this.record = smokeRecord;
     }
 
@@ -45,7 +45,7 @@ public class AdapterItemDate extends  RecyclerView.Adapter<AdapterItemDate.DateV
 
     @Override
     public void onBindViewHolder(DateViewHolder personViewHolder, int i) {
-        personViewHolder.date.setText(record.get(i).date);
+        personViewHolder.date.setText(record.get(i));
     }
 
     @Override

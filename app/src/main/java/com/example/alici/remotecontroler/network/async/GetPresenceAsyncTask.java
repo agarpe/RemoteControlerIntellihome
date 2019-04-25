@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<Date>> {
+public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
     private String place;
 
     public interface CallbackGetPresence {
-        void getPresence(Integer presence);
+        void getPresence(ArrayList<String> presence);
     }
     private CallbackGetPresence callback;
 
@@ -23,23 +23,23 @@ public class GetPresenceAsyncTask extends AsyncTask<Void, Void, ArrayList<Date>>
         this.place = place;
         this.callback = callback;
     }
-//
     @Override
-    protected ArrayList<Date> doInBackground(Void... voids) {
-        Call<Integer> getPresenceReq = IntelliHomeApplication.service.getPresence(place);
-        Response<Integer> getPresenceResp;
+    protected ArrayList<String> doInBackground(Void... voids) {
+        Call<ArrayList<String>> getPresenceReq = IntelliHomeApplication.service.getPresence(place);
+        Response<ArrayList<String>> getPresenceResp;
         try {
             getPresenceResp = getPresenceReq.execute();
-//            if (getPresenceResp.isSuccessful()) return // TODO new array de presences con getPresenceResp.body();
+            if (getPresenceResp.isSuccessful()) return getPresenceResp.body();
+            else return new ArrayList<String>();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-//    @Override
-//    protected void onPostExecute(/*TODO clase del parámetro que devuelva*/ presence) {
-//        super.onPostExecute(presence);
-//        callback.getPresence(presence);
-//    }
+    @Override
+    protected void onPostExecute(ArrayList<String> presence) {
+        super.onPostExecute(presence);
+        callback.getPresence(presence);
+    }
 }
